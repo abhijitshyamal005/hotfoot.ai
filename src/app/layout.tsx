@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import SplashScreen from "./components/Loader/SplashScreen"; 
 
 export const metadata: Metadata = {
   title: "rattad24",
@@ -19,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" type="image/x-icon" href={"/favicon.svg"} />
       <body className={` antialiased`}>
-        <SplashScreen>{children}</SplashScreen>
+        {children}
       </body>
     </html>
   );
