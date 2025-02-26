@@ -8,7 +8,6 @@ const page = () => {
   return (
     <>
     <Hero/>
-    <Trusted/>
     <Pricing/>
     <Slider/>
     </>
