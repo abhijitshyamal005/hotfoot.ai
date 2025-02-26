@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { Marquee } from "@/components/magicui/marquee";
 import {
     DocumentIcon,
     ShieldCheckIcon,
@@ -9,98 +8,93 @@ import {
     GlobeAltIcon,
     ChartBarIcon,
     HeartIcon,
+    StarIcon,
+    CogIcon,
+    LightBulbIcon,
+    PencilIcon,
+    BellIcon,
+    CameraIcon,
+    CloudIcon,
+    CreditCardIcon,
+    CurrencyDollarIcon,
+    HomeIcon,
 } from "@heroicons/react/24/outline";
+import { FC } from "react";
 
 const icons = [
-    {
-        icon: <DocumentIcon
-            className="h-12 w-12 text-white drop-shadow-[0px_0px_15px_#10B981]"
-            style={{ textShadow: "0px 0px 15px #10B981, inset 0px 0px 15px #10B981" }}
-        />, key: "document"
-    },
-
-    {
-        icon: <ShieldCheckIcon
-            className="h-12 w-12 text-white drop-shadow-[0px_0px_15px_#FACC15]"
-            style={{ textShadow: "0px 0px 15px #FACC15, inset 0px 0px 15px #FACC15" }}
-        />, key: "shield"
-    },
-
-    {
-        icon: <RssIcon
-            className="h-12 w-12 text-white drop-shadow-[0px_0px_15px_#EC4899]"
-            style={{ textShadow: "0px 0px 15px #EC4899, inset 0px 0px 15px #EC4899" }}
-        />, key: "rss"
-    },
-
-    {
-        icon: <GlobeAltIcon
-            className="h-12 w-12 text-white drop-shadow-[0px_0px_15px_#3B82F6]"
-            style={{ textShadow: "0px 0px 15px #3B82F6, inset 0px 0px 15px #3B82F6" }}
-        />, key: "globe"
-    },
-
-    {
-        icon: <ChartBarIcon
-            className="h-12 w-12 text-white drop-shadow-[0px_0px_15px_#9CA3AF]"
-            style={{ textShadow: "0px 0px 15px #9CA3AF, inset 0px 0px 15px #9CA3AF" }}
-        />, key: "chart"
-    },
+    { icon: DocumentIcon, color: "#10B981" },
+    { icon: ShieldCheckIcon, color: "#FACC15" },
+    { icon: RssIcon, color: "#EC4899" },
+    { icon: GlobeAltIcon, color: "#3B82F6" },
+    { icon: ChartBarIcon, color: "#9CA3AF" },
+    { icon: StarIcon, color: "#F59E0B" },
+    { icon: CogIcon, color: "#6366F1" },
+    { icon: LightBulbIcon, color: "#EAB308" },
+    { icon: PencilIcon, color: "#06B6D4" },
+    { icon: BellIcon, color: "#EF4444" },
+    { icon: CameraIcon, color: "#8B5CF6" },
+    { icon: CloudIcon, color: "#22D3EE" },
+    { icon: CreditCardIcon, color: "#F87171" },
+    { icon: CurrencyDollarIcon, color: "#84CC16" },
+    { icon: HomeIcon, color: "#4ADE80" },
 ];
 
+interface IconCardProps {
+    Icon: FC<{ className: string }>;
+    color: string;
+    opacity: number;
+}
 
-export default function HeroSection() {
-    const [startAnimation, setStartAnimation] = useState(false);
+const IconCard: FC<IconCardProps> = ({ Icon, color, opacity }) => {
+    return (
+        <div
+            className="w-20 h-20 flex items-center justify-center rounded-xl bg-[#121010]"
+            style={{ opacity }}
+        >
+            <div style={{ filter: `drop-shadow(0px 0px 10px ${color})` }}>
+                <Icon className="h-12 w-12 text-white" />
+            </div>
+        </div>
+    );
+};
 
-    useEffect(() => {
-        const timer = setTimeout(() => setStartAnimation(true), 500);
-        return () => clearTimeout(timer);
-    }, []);
+export default function IconSlider() {
+    const rows = [
+        icons.slice(0, 5),
+        icons.slice(5, 10),
+        icons.slice(7, 12),
+        icons.slice(10, 15),
+    ];
+    
+    const durations = [15, 20, 25, 30];
+    const opacities = [1, 0.7, 0.4, 0.2]; 
 
     return (
-        <div className=" h-full w-full flex items-center justify-center bg-black overflow-hidden">
-            {/* Animated Background Icons */}
-            <div className=" mt-10 inset-0 flex flex-col items-center space-y-6 mb-40">
-                {[...Array(4)].map((_, row) => (
-                    <motion.div
-                        key={row}
-                        className="flex space-x-8"
-                        initial={{ x: "0%" }}
-                        animate={startAnimation ? { x: "100%" } : {}}
-                        transition={{
-                            ease: "linear",
-                            duration: (8 - row) * 50,
-                            repeat: Infinity,
-                            delay: row * 2,
-                        }}
-                        style={{
-                            opacity: row === 0 ? 1 : row === 1 ? 0.6 : row === 2 ? 0.4 : 0.1
-                        }}
+        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-black py-10 space-y-4">
+            {rows.map((row, rowIndex) => (
+                <Marquee 
+                    key={rowIndex} 
+                    pauseOnHover 
+                    className={`rtl-marquee [--duration:${durations[rowIndex]}s]`}
+                >
+                    {row.map(({ icon: Icon, color }, index) => (
+                        <IconCard 
+                            key={`row-${rowIndex}-${index}`} 
+                            Icon={Icon} 
+                            color={color} 
+                            opacity={opacities[rowIndex]} 
+                        />
+                    ))}
+                </Marquee>
+            ))}
 
-                    >
-
-
-                        {[...Array(4)].map((_, i) => (
-                            <div key={`${row}-${i}`} className="flex space-x-8">
-                                {icons.map(({ icon, key }) => (
-                                    <div
-                                        key={`${row}-${i}-${key}`}
-                                        className="w-20 h-20 flex items-center justify-center rounded-xl bg-[#121010]"
-                                    >
-                                        {icon}
-                                    </div>
-                                ))}
-                            </div>
-                        ))}
-                    </motion.div>
-                ))}
-            </div>
-
-            {/* Centered Content */}
-            <div className="absolute z-30 text-center text-white p-6 rounded-lg mt-32 ">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black"></div>
+            
+            <div className="absolute z-30 text-center text-white p-6 rounded-lg mt-48">
                 <div className="flex justify-center mb-4">
-                    <div className="w-32 h-32 flex items-center p-2 justify-center rounded-2xl bg-[#0a0a0a] border border-[#262626]  text-white text-5xl">
-                        <HeartIcon className="h-60 w-60" />
+                    <div className="w-32 h-32 flex items-center p-2 justify-center rounded-2xl bg-[#0a0a0a] border border-[#262626] text-white text-5xl">
+                        <HeartIcon className="h-20 w-20 text-red-500" style={{ filter: "drop-shadow(0px 0px 15px red)" }} />
                     </div>
                 </div>
                 <h1 className="text-4xl font-bold">Stop wasting time on design.</h1>
