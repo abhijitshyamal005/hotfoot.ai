@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export const metadata: Metadata = {
-  title: 'Rattad24',
+  title: 'Magic UI',
   icons: {
     icon: "/icon.png", 
   },
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
       <div className="">
         <Header />
-        <main className='pt-20'>{children}</main>
+        <main className=''>{children}</main>
         <Footer />
       </div>
   );

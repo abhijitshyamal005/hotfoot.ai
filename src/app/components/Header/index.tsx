@@ -1,12 +1,18 @@
-
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   return (
-    <div className=" flex justify-between  px-7 py-4">
-      <div className="font-normal text-lg">Magic UI</div>
-      <div className="flex justify-between items-center px-4 py-2">
-       <button>Log In</button>
-      <button>Sign In</button>
+    <div className="bg-black text-white py-3 border-b border-[#262626]">
+      <div className="max-w-screen-2xl mx-auto flex justify-between items-center px-10">
+        <div className="text-lg font-normal">Magic UI</div>
+        <div className="flex space-x-3">
+          <Button variant="ghost" className="text-white text-md font-normal">
+            Log in
+          </Button>
+          <Button className="bg-[#262626] text-white px-4 py-1.5 rounded-lg text-sm">
+            Sign up
+          </Button>
+        </div>
       </div>
     </div>
   );
